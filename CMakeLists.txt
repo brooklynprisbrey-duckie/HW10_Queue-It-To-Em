@@ -11,7 +11,7 @@ include_directories( inc )
 
 ADD_EXECUTABLE(LinkedList "src/LinkedList.cpp")
 
-ADD_EXECUTABLE( ${APP_EXECUTABLE} "src/LinkedListTest.cpp"  "src/LinkedList.cpp")
+ADD_EXECUTABLE( ${APP_EXECUTABLE} "src/LinkedListTest.cpp"  "src/LinkedList.cpp" "inc/LinkedList.h")
 
 target_compile_definitions(LinkedListTest PRIVATE TESTING)
 
