@@ -8,7 +8,7 @@ using namespace std;
 //TODO: Create your Node Struct and Queue class here
 struct Node {
 	string data = "hi-ho kermit the frog here";
-	Node* next;
+	Node* next = nullptr;
 };
 
 class Queue {
@@ -23,28 +23,66 @@ public:
 		count = 0;
 	};
 	~Queue() {
-		//delete ???; all data especially called with "new" needs to be deleted especially
-		cout << "Queue destroyed. Rides free. Nothing will stop you now." << endl;
+		while (count > 0) { dequeue(); }
+		cout << "Queue destroyed. Rides free. Nothing will stop you now.\n" << 
+			"Documentary on Disney's Fastpass: https://youtu.be/9yjZpBq1XBE?si=Xp1UrLDop6s8AAjj" << endl;
 	};
 
 	void enqueue(string data) {
 		//will we use printer arithmatic? Pointer++ as they are all consecutive
-		Node count;
+		Node* temp = new Node;
+		temp->data = data;
+		if (!count) {
+			front = temp; //TODO fix front multiple queueing
+		}
+		else {
+			back->next = temp;
+		}
+		back = temp;
+		count++;
 	}
 	void dequeue() {
-
+		if (front) {
+			Node* temp = front;
+			front = front->next;//next is new front
+			count--;
+			delete temp;
+		}
+		else {
+			delete front;
+		}
+		return;
 	}
 	string peek() {
-		return "Kermie!!!";
+		if (count) {
+			return front->data;
+		}
+		else {
+			return "";
+		}
 	}
 	bool isEmpty() {
+		if (front) {
+			return false;
+		}
 		return true;
 	}
 	int size() {
-		return 0;
+		return count;
 	}
 	void print() {
-
+		if (count) {
+			Node* holder = front;
+			for (int i = 0; i < count; i++) {
+				cout << holder->data << ", ";
+				holder = holder->next;
+			}
+			cout << endl;
+		}
+		else {
+			cout << "The wind blows a tumbleweed past. This memory is empty." << endl;
+		}
+		return;
 	}
 };
 
